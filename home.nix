@@ -45,7 +45,13 @@
     hyprpicker
     clipse
     devenv
+    pastel
+    astroterm
+    fzf
   ];
+
+  # Allow home-manager as a standalone tool.
+  # programs.home-manager.enable = true;
 
   # basic configuration of git
   programs.git = {
