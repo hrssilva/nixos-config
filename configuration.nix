@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -121,7 +121,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -144,36 +144,11 @@
     isNormalUser = true;
     description = "Haroldo R. S. Silva";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-       thunderbird
-       discord
-       teams-for-linux
-       protege
-       zotero
-       galaxy-buds-client
-       pavucontrol
-       libreoffice
-       chromium
-       htop
-       lorien
-       hyprland-monitor-attached
-       hyprpicker
-       clipse
-       antlr4_9
-       devenv
-    ];
   };
 
   nix.extraOptions = ''
         trusted-users = root hrssilva
     '';
-
-  # Install firefox.
-  programs.firefox.enable = true;
-  
-  # Install steam
-  programs.steam.enable = true;
-
   
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -184,7 +159,8 @@
     curl
     git
     neovim
-    ghostty
+    #ghostty
+    #inputs.ghostty.packages."${pkgs.system}".ghostty
     kitty
     wofi
     networkmanagerapplet
@@ -207,8 +183,12 @@
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji
-    nerdfonts
-  ];
+  ]++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+ 
+  
+  environment.variables.EDITOR = "nvim";
+  
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
