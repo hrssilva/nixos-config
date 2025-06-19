@@ -96,8 +96,6 @@
   # Install chromium.
   programs.chromium.enable = true;
   
-  # Install steam
-  programs.steam.enable = true;
 
 
   # This value determines the home Manager release that your
