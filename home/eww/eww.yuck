@@ -1,0 +1,358 @@
+; eww config
+
+; ━━━━ windows ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+(defwindow mainbar [mon] :monitor mon
+               :geometry (geometry :x 0 :y 0 :height "15px" :width "100%" :anchor "center top")
+               :stacking "fg" 
+               :exclusive true
+               :focusable false
+	       :class "bar"
+               :namespace "eww-blur"
+  (bar0 :monitor mon))
+(defwindow win0 :monitor 0
+               :geometry (geometry :x 0 :y 0 :height "15px" :width "100%" :anchor "center top")
+               :stacking "fg" 
+               :exclusive true
+               :focusable false
+	       :class "bar"
+               :namespace "eww-blur"
+  (bar0 :monitor "0"))
+(defwindow win1 :monitor 1
+               :geometry (geometry :x 0 :y 0 :height "15px" :width "100.01%" :anchor "center top")
+               :stacking "fg" 
+               :exclusive true
+               :focusable false
+	       :class "bar"
+               :namespace "eww-blur"
+  (bar0 :monitor "1"))
+(defwindow win2 :monitor 2
+               :geometry (geometry :x 0 :y 0 :height "15px" :width "100.01%" :anchor "center top")
+               :stacking "fg" 
+               :exclusive true
+               :focusable false
+	       :class "bar"
+               :namespace "eww-blur"
+  (bar0 :monitor "2"))
+
+(defwindow dashboard :monitor 0
+               :geometry (geometry :x 0 :y 0 :height "75%" :width "75%" :anchor "center")
+               :stacking "overlay" 
+               :exclusive false
+               :focusable false
+               :namespace "eww-blur"
+  (board :monitor "0"))
+
+(defwindow powermenu
+    :monitor 0
+    :stacking "overlay"
+    :geometry (geometry 
+                    :anchor "center"
+                    :width "100%"
+                    :height "120%")
+    :namespace "eww-blur"
+    (powermenu)
+)
+
+(defwindow dashboard-closer
+  :monitor 0
+  :geometry (geometry :width "100%" :height "100%")
+  :stacking "fg"
+  :focusable false
+  (closer :window "dashboard"))
+
+; ━━━━ Closer ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+(defwidget closer [window]
+  (eventbox :onclick "eww close ${window} && eww close ${window}-closer"))
+ 
+; ━━━━ bars ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defwidget bar0 [monitor] 
+  (box :orientation "h"
+       :space-evenly true
+       :class "bar-bg"
+    (box :class "base-glass left"
+         :halign "start"
+         :spacing 20
+      (workspaces :monitor monitor))
+    (box :class "base-glass right"
+         :halign "end"
+         :spacing 20
+         :space-evenly false
+      (tray)
+      (camera)
+      (mic)
+      (speakers)
+      (battery)
+      (time)
+      (date))))
+
+; ━━━━ workspaces ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(deflisten workspaces  "./modules/hypr_workspaces.sh")
+
+(defwidget workspaces [monitor]
+  (box :orientation "h" :class "workspaces"
+    (for wsp in {workspaces[monitor]}
+      (button :class "workspace ${wsp.class}"
+              :onclick ""
+        (box
+          (label :class "icon" :text "${wsp.icon}")
+          (label :class "name" :text "${wsp.name}"))))))
+        ;{wsp.name}))))
+
+
+
+; ━━━━ tray ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defwidget tray []
+  (box :class "tray"
+    (systray)))
+
+; ━━━━ camera ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defpoll camera :initial "0" :interval "10s" "./modules/camera.sh")
+
+(defwidget camera []
+  (box :class "camera"
+    :space-evenly false
+    (label :class "icon ${camera == 0 ? 'disconnected' : 'connected'}"
+         :text "${camera == 0 ? '󱜷' : '󰖠'}")))
+
+; ━━━━ wifi ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defpoll wifi :initial "0" :interval "1m" "./modules/wifi.sh")
+
+(defwidget wifi []
+  (tooltip
+    (label :class "tooltip" :text "${wifi == 0 ? 'Disconnected' : wifi}")
+    (box :class "wifi"
+      :space-evenly false
+      ;(label :class "icon" :text "󱚽󰖪")
+      (button :onclick "nm-connection-editor &"
+      (label 
+        :class "icon ${wifi == 0 ? 'disconnected' : 'connected'} " 
+        :text "${wifi == 0 ? '󰖪' : '󱚽' }")))))
+
+
+; ━━━━ mic ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(deflisten mic :initial 0  "./modules/listen-mic.sh")
+
+(defwidget mic []
+  (box :class "mic"
+    :space-evenly false
+    (button :class "mute-toggle"
+            :onclick "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+      ; 0: muted, 1: unmuted, 2: running
+      (label :class "icon single-icon ${mic == 2 ? 'running' : mic == 0 ? 'muted' : ''}"
+             :text "${mic == 0 ? '󰍭' :  '󰍬' }"))))
+
+; ━━━━ volume ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(deflisten speakers :initial '{ "volume": 0, "muted": "false" }' "./modules/listen-volume.sh")
+
+(defwidget speakers []
+  (tooltip 
+    (label :class "tooltip" :text "${ speakers.volume }%")
+    (box :class "speakers"
+      :space-evenly false
+      (button :class "icon ${ speakers.volume > 100 ? 'over' : '' } ${ speakers.muted ? 'muted' : '' }"
+        :onclick "pactl set-sink-mute @DEFAULT_SINK@ toggle"  
+        (label :text "${ speakers.muted ? '󰖁' : 
+                        speakers.volume > 70 ? '󰕾' : 
+                        speakers.volume > 35 ? '󰖀' : 
+                        '󰕿' }"))
+
+    (scale 
+      :class "${ speakers.volume > 100 ? 'over' : '' }"
+      :min 0  
+      :max 100 
+      :value "${speakers.volume}" 
+      :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%"))))
+
+; ━━━━ battery ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defwidget battery []
+  (box :class "battery"
+    :space-evenly false
+    (label :class "icon ${ EWW_BATTERY["BAT1"].capacity <= 10 ? 'critical' : '' }"
+           :text "${  EWW_BATTERY["BAT1"].capacity > 95 ? '󰁹' 
+                    : EWW_BATTERY["BAT1"].capacity > 90 ? '󰂂' 
+                    : EWW_BATTERY["BAT1"].capacity > 80 ? '󰂁' 
+                    : EWW_BATTERY["BAT1"].capacity > 70 ? '󰂀' 
+                    : EWW_BATTERY["BAT1"].capacity > 60 ? '󰁿' 
+                    : EWW_BATTERY["BAT1"].capacity > 50 ? '󰁾' 
+                    : EWW_BATTERY["BAT1"].capacity > 40 ? '󰁽' 
+                    : EWW_BATTERY["BAT1"].capacity > 30 ? '󰁼' 
+                    : EWW_BATTERY["BAT1"].capacity > 20 ? '󰁻' 
+                    : EWW_BATTERY["BAT1"].capacity > 10 ? '󰁺' 
+                    : '󰂃' }")
+    (label :text "${EWW_BATTERY["BAT1"].capacity}" :halign "center" :xalign 0.5 :justify "right")))
+
+; ━━━━ date ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defpoll date_poll :interval "1m" "date +%d/%m")
+(defpoll cal_poll :interval "120m" "cal -v")
+
+(defwidget date []
+  (tooltip 
+    (calendar :class "tooltip")
+    (box :class "date"
+      :space-evenly false
+      (label :class "icon" :text "󰃶")
+      (label :class "name":text date_poll))))
+
+; ━━━━ time ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defpoll time_poll :interval "1s" "date +%H:%M")
+
+(defwidget time []
+  (box :class "time"
+    :space-evenly false
+    (label :class "icon" :text "󰥔")
+    (label :text time_poll)))
+
+; ━━━━ powermeu ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+(defwidget powermenu_entry [label icon onclick]
+    (box :orientation "v" :space-evenly false :class "powermenu-entry"
+        (button :class "mantle-glass powermenu-button" :onclick {onclick}
+            (label :class "powermenu-icon" :text {icon})
+        )
+        (label :class "powermenu-text" :text {label})
+    )
+)
+
+(defwidget powermenu []
+(box :class "crust-glass powermenu-bg"
+    (box :orientation "h" :space-evenly true :valign "center" :halign "center" :class "base-glass powermenu-box"
+	(powermenu_entry    :label "Power off" 
+			    :icon "󰐥" 
+			    :onclick "systemctl poweroff")
+	(powermenu_entry    :label "Reboot" 
+			    :icon "󰜉" 
+			    :onclick "systemctl reboot")
+	(powermenu_entry    :label "Lock" 
+			    :icon "" 
+			    :onclick "sleep 0.1 && gtklock & eww close powermenu &")
+
+	(powermenu_entry    :label "Suspend" 
+			    :icon "󰤄" 
+			    :onclick "sleep 0.1 && gtklock & systemctl suspend & eww close powermenu &")
+				
+	(powermenu_entry    :label "Sign out" 
+			    :icon "󰗼" 
+			    :onclick "hyprctl dispatch exit 0")
+
+	(powermenu_entry    :label "Cancel" 
+			    :icon "󰅖" 
+			    :onclick "eww close powermenu")
+	    
+    )))
+
+; ━━━━ Dashboard ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defpoll uptime :initial "0" :interval "10s" "./modules/pretty_uptime.sh")
+
+(defpoll blight :initial "0" :interval "0.5s" "./modules/blight.sh")
+
+(defwidget board [monitor]
+  (box :class "base-glass dashboard-bg" :spacing 100
+    (sysinfo)
+    (systat)
+  )
+)
+
+(defwidget sysinfo []
+  (box :orientation "v" :class "mantle-glass sysinfo"
+    (label :class "name" :text "${uptime}")
+    (calendar :class "cal")
+  )
+)
+
+(defwidget systat []
+  (box :orientation "v" :spacing 10
+    (systat1)
+    (systat2)
+  )
+)
+
+
+(defwidget systat1 []
+  (box :class "mantle-glass systat" :spacing 10
+    (mem)
+    (cpu)
+  )
+)
+
+(defwidget systat2 []
+  (box :class "mantle-glass systat" :spacing 10
+    (bat)
+    (backlight)
+  )
+)
+
+(defwidget mem []
+  (box :class "mem" :orientation "v" :space-evenly "false"
+    (label :class "graph-title" :text "RAM")
+    (circular-progress 
+    	:value "${EWW_RAM['used_mem_perc']}"
+	:thickness 50
+	:start-at 25
+	:class "crust-glass mem-graph"
+	(label :class "graph-text" :text "${round(EWW_RAM['total_mem']/1073741824, 1)}/${round(EWW_RAM['used_mem']/1073741824, 1)}"))
+  )
+)
+
+(defwidget cpu []
+  (box :class "cpu" :orientation "v" :space-evenly "false"
+    (label :class "graph-title" :text "CPU")
+    (circular-progress 
+    	:value "${EWW_CPU['avg']}"
+	:thickness 50
+	:start-at 25
+	:class "crust-glass cpu-graph"
+	(label :class "graph-text" :text "${round(EWW_CPU['avg'], 2)}")
+    )
+  )
+)
+
+(defwidget bat []
+  (box :class "bat" :orientation "v" :space-evenly "false"
+    (circular-progress 
+    	:value "${EWW_BATTERY['BAT1'].capacity}"
+	:thickness 50
+	:start-at 25
+	:class "crust-glass bat-graph"
+        (label :class "graph-text icon ${ EWW_BATTERY["BAT1"].capacity <= 10 ? 'critical' : '' }"
+           :text "${  EWW_BATTERY["BAT1"].capacity > 95 ? '󰁹' 
+                    : EWW_BATTERY["BAT1"].capacity > 90 ? '󰂂' 
+                    : EWW_BATTERY["BAT1"].capacity > 80 ? '󰂁' 
+                    : EWW_BATTERY["BAT1"].capacity > 70 ? '󰂀' 
+                    : EWW_BATTERY["BAT1"].capacity > 60 ? '󰁿' 
+                    : EWW_BATTERY["BAT1"].capacity > 50 ? '󰁾' 
+                    : EWW_BATTERY["BAT1"].capacity > 40 ? '󰁽' 
+                    : EWW_BATTERY["BAT1"].capacity > 30 ? '󰁼' 
+                    : EWW_BATTERY["BAT1"].capacity > 20 ? '󰁻' 
+                    : EWW_BATTERY["BAT1"].capacity > 10 ? '󰁺' 
+                    : '󰂃' }"
+        )
+    )
+  )
+)
+
+(defwidget backlight []
+  (box :class "cpu" :orientation "v" :space-evenly "false"
+    (circular-progress 
+    	:value "${blight}"
+	:thickness 50
+	:start-at 25
+	:class "crust-glass blight-graph"
+	(label :class "graph-text big" :text '󰖨')
+    )
+  )
+)
+
+; ━━━━ clipboard ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defwidget cliphist []
+  (box :class "clip"))

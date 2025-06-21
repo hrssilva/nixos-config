@@ -2,7 +2,7 @@
 {
   imports = [
   	./eww	
-  ]
+  ];
 
   home.username = "hrssilva";
   home.homeDirectory = "/home/hrssilva";
