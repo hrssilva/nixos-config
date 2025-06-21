@@ -359,13 +359,16 @@
 
 ; ━━━━ media controller ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 (defpoll visualizer :interval "0.05s" "~/.config/eww/modules/audio-visualizer.sh")
+(defpoll song_title :interval "2s" "playerctl metadata title || echo 'No song'")
+(defpoll artist_name :interval "2s" "playerctl metadata artist || echo 'Unknown Artist'")
+
 
 (defwidget media-controls []
   (box :orientation "vertical" :spacing 4 :halign "center"
     ;; Now Playing Info
     (box :orientation "vertical" :spacing 1 :halign "center"
-      (label :text song_title :class "media-title")
-      (label :text artist_name :font "text" ))
+      (label :text "${song_title}" :class "media-title")
+      (label :text "${artist_name}" :font "text" ))
 
     ;; Controls
     (box :orientation "horizontal" :spacing 10 :halign "center"

@@ -1,5 +1,5 @@
 { config, pkgs, super, ... }: let
-    cavaPath = "${super}/home/cava";
+    cavaPath = "${config.home.homeDirectory}/nixos-config/home/cava";
 in {
 
     xdg.configFile."cava".source = config.lib.file.mkOutOfStoreSymlink cavaPath;
