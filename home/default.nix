@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 {
   imports = [
-  	./eww	
+  	./eww
+	./cava
   ];
 
   home.username = "hrssilva";

@@ -264,7 +264,7 @@
 
 (defwidget sysinfo []
   (box :orientation "v" :class "mantle-glass sysinfo"
-    (label :class "name" :text "${uptime}")
+    (media-controls)
     (calendar :class "cal")
   )
 )
@@ -356,3 +356,38 @@
 
 (defwidget cliphist []
   (box :class "clip"))
+
+; ━━━━ media controller ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+(defpoll visualizer :interval "0.05s" "~/.config/eww/modules/audio-visualizer.sh")
+
+(defwidget media-controls []
+  (box :orientation "vertical" :spacing 4 :halign "center"
+    ;; Now Playing Info
+    (box :orientation "vertical" :spacing 1 :halign "center"
+      (label :text song_title :class "media-title")
+      (label :text artist_name :font "text" ))
+
+    ;; Controls
+    (box :orientation "horizontal" :spacing 10 :halign "center"
+      (button
+        :on-click "playerctl previous"
+        (label :text "⏮️"))
+      (button
+        :on-click "playerctl play-pause"
+        (label :text "⏯️"))
+      (button
+        :on-click "playerctl next"
+        (label :text "⏭️"))
+
+      (label
+	:text visualizer
+	:class "visualizer"
+	:halign "center"
+	:valign "center")
+    )
+  )
+)
+
+
+
+
