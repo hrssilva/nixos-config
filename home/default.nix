@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
-
 {
-  # TODO please change the username & home directory to your own
+  imports = [
+  	./eww	
+  ]
+
   home.username = "hrssilva";
   home.homeDirectory = "/home/hrssilva";
 

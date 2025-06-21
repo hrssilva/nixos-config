@@ -164,7 +164,6 @@
     kitty
     wofi
     networkmanagerapplet
-    eww
     swww
     dunst
     libnotify
