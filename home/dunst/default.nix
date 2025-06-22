@@ -5,9 +5,10 @@
 { config, pkgs, super, ... }: let 
     pkgName = "dunst";
     dotPath = "${config.home.homeDirectory}/nixos-config/home/${pkgName}";
+    package = builtins.getAttr pkgName pkgs;
 in {
 
     xdg.configFile."${pkgName}".source = config.lib.file.mkOutOfStoreSymlink dotPath;
 
-    home.packages = with pkgs; [ pkgName ];
+    home.packages = with pkgs; [ package ];
 }
