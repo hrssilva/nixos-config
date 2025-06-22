@@ -5,6 +5,7 @@
   	./eww
 	./cava
 	./kdeconnect
+	./dunst
   ];
 
   home.username = "hrssilva";
