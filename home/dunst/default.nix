@@ -3,7 +3,7 @@
 # This example installs the pkg and creates a symlink to the pkg folder for managing the dotfiles.
 
 { config, pkgs, super, ... }: let 
-    pkgName = "example";
+    pkgName = "dunst";
     dotPath = "${config.home.homeDirectory}/nixos-config/home/${pkgName}";
 in {
 
