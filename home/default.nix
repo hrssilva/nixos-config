@@ -1,8 +1,10 @@
 { config, pkgs, ... }:
 {
   imports = [
+        # Comment out items to unninstall
   	./eww
 	./cava
+	./kdeconnect
   ];
 
   home.username = "hrssilva";
