@@ -165,7 +165,6 @@
     wofi
     networkmanagerapplet
     swww
-    dunst
     libnotify
     socat
     jq
