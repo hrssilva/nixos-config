@@ -227,22 +227,22 @@ scale.over trough highlight {
 }
 
 .mem-graph {
-  color: $blue;
+  color: rgba(red($blue), green($blue), blue($blue), 65%);
   font-size: 1.2rem;
 }
 
 .cpu-graph {
-  color: $blue;
+  color: rgba(red($blue), green($blue), blue($blue), 65%);
   font-size: 1.2rem;
 }
 
 .bat-graph {
-  color: $green;
+  color: rgba(red($green), green($green), blue($green), 65%);
   font-size: 1.2rem;
 }
 
 .blight-graph {
-  color: $yellow;
+  color: rgba(red($yellow), green($yellow), blue($yellow), 65%);
   font-size: 1.2rem;
 }
 
@@ -308,4 +308,13 @@ scale.over trough highlight {
 .visualizer {
     font-size: 0.8rem;
     color: $crust-glass;
+}
+
+.media-info {
+    border-radius: 1rem;
+    transition: 0.3s;
+}
+
+.media-info:hover {
+    background-color: $base-glass;
 }

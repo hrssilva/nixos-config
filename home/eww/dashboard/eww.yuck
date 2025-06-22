@@ -139,9 +139,10 @@
 (defwidget media-controls []
   (box :orientation "vertical" :halign "center"
     ;; Now Playing Info
+   (eventbox :onclick "playerctld shift" :class "media-info"
     (box :orientation "vertical" :spacing 1 :halign "center"
       (label :text "${song_title}" :truncate true :show-trucated true :class "media-title")
-      (label :text "${artist_name}" :class "name" ))
+      (label :text "${artist_name}" :class "name" )))
 
     ;; Controls
     (box :orientation "horizontal" :spacing 10 :halign "center"
