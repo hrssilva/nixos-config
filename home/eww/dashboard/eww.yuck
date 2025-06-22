@@ -1,0 +1,172 @@
+; eww config
+
+; ━━━━ windows ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+(defwindow dashboard :monitor 0
+               :geometry (geometry :x 0 :y 0 :height "75%" :width "75%" :anchor "center")
+               :stacking "overlay" 
+               :exclusive false
+               :namespace "eww-blur"
+  (board :monitor "0"))
+
+(defwindow dashboard-closer
+  :monitor 0
+  :geometry (geometry :width "10%" :height "10%")
+  :stacking "fg"
+  :focusable false
+  (closer :window "dashboard"))
+
+; ━━━━ Closer ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+(defwidget closer [window]
+  (eventbox :onclick "eww close ${window} && eww close ${window}-closer"))
+ 
+; ━━━━ Dashboard ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defpoll uptime :initial "0" :interval "10s" "../modules/pretty_uptime.sh")
+
+(defpoll blight :initial "0" :interval "0.5s" "../modules/blight.sh")
+
+(defwidget board [monitor]
+  (box :class "base-glass dashboard-bg" :spacing 100
+    (sysinfo)
+    (systat)
+  )
+)
+
+(defwidget sysinfo []
+  (box :orientation "v" :spacing 10 
+    (box :class "mantle-glass sysinfo"
+      (media-controls))
+    (box :class "mantle-glass sysinfo"
+      (calendar :class "cal"))
+  )
+)
+
+(defwidget systat []
+  (box :orientation "v" :spacing 10
+    (systat1)
+    (systat2)
+  )
+)
+
+
+(defwidget systat1 []
+  (box :class "mantle-glass systat" :spacing 10
+    (mem)
+    (cpu)
+  )
+)
+
+(defwidget systat2 []
+  (box :class "mantle-glass systat" :spacing 10
+    (bat)
+    (backlight)
+  )
+)
+
+(defwidget mem []
+  (box :class "mem" :orientation "v" :space-evenly "false"
+    (label :class "graph-title" :text "RAM")
+    (circular-progress 
+    	:value "${EWW_RAM['used_mem_perc']}"
+	:thickness 50
+	:start-at 25
+	:class "crust-glass mem-graph"
+	(label :class "graph-text" :text "${round(EWW_RAM['total_mem']/1073741824, 1)}/${round(EWW_RAM['used_mem']/1073741824, 1)}"))
+  )
+)
+
+(defwidget cpu []
+  (box :class "cpu" :orientation "v" :space-evenly "false"
+    (label :class "graph-title" :text "CPU")
+    (circular-progress 
+    	:value "${EWW_CPU['avg']}"
+	:thickness 50
+	:start-at 25
+	:class "crust-glass cpu-graph"
+	(label :class "graph-text" :text "${round(EWW_CPU['avg'], 2)}")
+    )
+  )
+)
+
+(defwidget bat []
+  (box :class "bat" :orientation "v" :space-evenly "false"
+    (circular-progress 
+    	:value "${EWW_BATTERY['BAT1'].capacity}"
+	:thickness 50
+	:start-at 25
+	:class "crust-glass bat-graph"
+        (label :class "graph-text icon ${ EWW_BATTERY["BAT1"].capacity <= 10 ? 'critical' : '' }"
+           :text "${  EWW_BATTERY["BAT1"].capacity > 95 ? '󰁹' 
+                    : EWW_BATTERY["BAT1"].capacity > 90 ? '󰂂' 
+                    : EWW_BATTERY["BAT1"].capacity > 80 ? '󰂁' 
+                    : EWW_BATTERY["BAT1"].capacity > 70 ? '󰂀' 
+                    : EWW_BATTERY["BAT1"].capacity > 60 ? '󰁿' 
+                    : EWW_BATTERY["BAT1"].capacity > 50 ? '󰁾' 
+                    : EWW_BATTERY["BAT1"].capacity > 40 ? '󰁽' 
+                    : EWW_BATTERY["BAT1"].capacity > 30 ? '󰁼' 
+                    : EWW_BATTERY["BAT1"].capacity > 20 ? '󰁻' 
+                    : EWW_BATTERY["BAT1"].capacity > 10 ? '󰁺' 
+                    : '󰂃' }"
+        )
+    )
+  )
+)
+
+(defwidget backlight []
+  (box :class "cpu" :orientation "v" :space-evenly "false"
+    (circular-progress 
+    	:value "${blight}"
+	:thickness 50
+	:start-at 25
+	:class "crust-glass blight-graph"
+	(label :class "graph-text big" :text '󰖨')
+    )
+  )
+)
+
+; ━━━━ clipboard ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defwidget cliphist []
+  (box :class "clip"))
+
+; ━━━━ media controller ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+;(defpoll visualizer :interval "1s" "echo ▂▅▄▃▂▇▆▁▁▂▃▅▆▂▂")
+(deflisten visualizer "../modules/audio-visualizer.sh")
+(defpoll song_title :interval "2s" "playerctl metadata title || echo 'No song'")
+(defpoll artist_name :interval "2s" "playerctl metadata artist || echo 'Unknown Artist'")
+
+
+(defwidget media-controls []
+  (box :orientation "vertical" :halign "center"
+    ;; Now Playing Info
+    (box :orientation "vertical" :spacing 1 :halign "center"
+      (label :text "${song_title}" :truncate true :show-trucated true :class "media-title")
+      (label :text "${artist_name}" :class "name" ))
+
+    ;; Controls
+    (box :orientation "horizontal" :spacing 10 :halign "center"
+      (button
+        :class "media-button"
+        :onclick "playerctl previous"
+        (label :text "" :class "media-icon"))
+      (button
+        :class "media-button"
+        :onclick "playerctl play-pause"
+        (label :text "" :class "media-icon"))
+      (button
+        :class "media-button"
+        :onclick "playerctl next"
+        (label :text "" :class "media-icon"))
+     )
+     (label
+         :truncate true
+         :text "${visualizer}"
+         :class "visualizer"
+         :halign "center"
+         :valign "center")
+  )
+)
+
+
+
+

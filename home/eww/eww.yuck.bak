@@ -38,7 +38,6 @@
                :geometry (geometry :x 0 :y 0 :height "75%" :width "75%" :anchor "center")
                :stacking "overlay" 
                :exclusive false
-               :focusable false
                :namespace "eww-blur"
   (board :monitor "0"))
 
@@ -358,36 +357,39 @@
   (box :class "clip"))
 
 ; ━━━━ media controller ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
-(defpoll visualizer :interval "0.05s" "~/.config/eww/modules/audio-visualizer.sh")
+;(defpoll visualizer :interval "1s" "echo ▂▅▄▃▂▇▆▁▁▂▃▅▆▂▂")
+(deflisten visualizer "./modules/audio-visualizer.sh")
 (defpoll song_title :interval "2s" "playerctl metadata title || echo 'No song'")
 (defpoll artist_name :interval "2s" "playerctl metadata artist || echo 'Unknown Artist'")
 
 
 (defwidget media-controls []
-  (box :orientation "vertical" :spacing 4 :halign "center"
+  (box :orientation "vertical" :halign "center"
     ;; Now Playing Info
     (box :orientation "vertical" :spacing 1 :halign "center"
       (label :text "${song_title}" :class "media-title")
-      (label :text "${artist_name}" :font "text" ))
+      (label :text "${artist_name}" :class "name" ))
 
     ;; Controls
     (box :orientation "horizontal" :spacing 10 :halign "center"
       (button
-        :on-click "playerctl previous"
-        (label :text "⏮️"))
+        :class "media-button"
+        :onclick "playerctl previous"
+        (label :text "" :class "media-icon"))
       (button
-        :on-click "playerctl play-pause"
-        (label :text "⏯️"))
+        :class "media-button"
+        :onclick "playerctl play-pause"
+        (label :text "" :class "media-icon"))
       (button
-        :on-click "playerctl next"
-        (label :text "⏭️"))
-
-      (label
-	:text visualizer
-	:class "visualizer"
-	:halign "center"
-	:valign "center")
-    )
+        :class "media-button"
+        :onclick "playerctl next"
+        (label :text "" :class "media-icon"))
+     )
+     (label
+         :text "${visualizer}"
+         :class "visualizer"
+         :halign "center"
+         :valign "center")
   )
 )
 

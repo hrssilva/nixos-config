@@ -51,6 +51,7 @@
     pastel
     astroterm
     fzf
+    spotify-player
   ];
 
   # Allow home-manager as a standalone tool.

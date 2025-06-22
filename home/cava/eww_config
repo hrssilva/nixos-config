@@ -1,17 +1,17 @@
 [general]
-bars = 16
+bars = 20
 framerate = 60
-autosens = 1
-bitformat = 16bit
 input = pulse
+bitformat = 16bit
+autosens = 1
 
 [output]
 method = raw
 raw_target = /dev/stdout
 data_format = ascii
-ascii_max_range = 9
+ascii_max_range = 16
+bar_delimiter = none
 
 [smoothing]
-integral = 77
+noise_reduction = 77
 monstercat = 1
-

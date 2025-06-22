@@ -245,9 +245,9 @@ scale.over trough highlight {
   color: $yellow;
   font-size: 1.2rem;
 }
+
 .cal {
   color: $text;
-  margin: 1.0rem;
 }
 
 .systat{
@@ -286,4 +286,26 @@ scale.over trough highlight {
 
 .crust-glass {
   background-color: $crust-glass; 
+}
+
+
+.media-button {
+    border-radius: 1rem;
+    transition: 0.3s;
+    padding: 0rem 1rem;
+}
+
+.media-button:hover {
+  background-color: $base-glass;
+}
+
+
+.media-icon {
+    font-size: 2rem;
+    color: $text;
+}
+
+.visualizer {
+    font-size: 0.8rem;
+    color: $crust-glass;
 }
