@@ -6,6 +6,7 @@
 	./cava
 	./kdeconnect
 	./dunst
+	./inkscape
   ];
 
   home.username = "hrssilva";
