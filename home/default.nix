@@ -4,6 +4,9 @@
         # Comment out items to unninstall
 	./hypr
   	./eww
+  	./wofi
+  	./nvim
+  	./kitty
 	./cava
 	./kdeconnect
 	./dunst
@@ -67,16 +70,6 @@
     userName = "hrssilva";
     userEmail = "haroldo.rssilva@gmail.com";
   };
-
-  programs.neovim = {
-    enable = true;
-    withPython3 = true;
-    withNodeJs = true;
-    defaultEditor = true;
-  };
-  #home.file.".config/nvim/init.vim".text = ''
-  #    set notermguicolors
-  #'';
 
   # starship - an customizable prompt for any shell
   programs.starship = {
