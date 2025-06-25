@@ -2,6 +2,7 @@
 {
   imports = [
         # Comment out items to unninstall
+	./hypr
   	./eww
 	./cava
 	./kdeconnect
@@ -48,7 +49,6 @@
     libreoffice
     htop
     lorien
-    hyprland-monitor-attached
     hyprpicker
     clipse
     devenv
