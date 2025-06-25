@@ -223,6 +223,12 @@ in {
 	bind = $mainMod, right, movefocus, r
 	bind = $mainMod, up, movefocus, u
 	bind = $mainMod, down, movefocus, d
+	
+	# Move focus with vim bindings
+	bind = $mainMod, h, movefocus, l
+	bind = $mainMod, l, movefocus, r
+	bind = $mainMod, k, movefocus, u
+	bind = $mainMod, j, movefocus, d
 
 	# Switch workspaces with mainMod + [0-9]
 	bind = $mainMod, 1, workspace, 1
@@ -256,10 +262,6 @@ in {
 	bind = $mainMod, mouse_down, workspace, e+1
 	bind = $mainMod, mouse_up, workspace, e-1
 
-	# Move/resize windows with mainMod + LMB/RMB and dragging
-	bindm = $mainMod, mouse:272, movewindow
-	bindm = $mainMod, mouse:273, resizewindow
-
 	# Maximize windows
 	bind = $mainMod, F, fullscreen, 0
 	bind = $mainMod SHIFT, F, fullscreenstate, 0, 2 # fake fullscreen
@@ -270,6 +272,10 @@ in {
 
 	# Print Screen
 	bind = , Print, exec, $printscreen
+
+	# Move/resize windows with mainMod + LMB/RMB and dragging
+	bindm = $mainMod, mouse:272, movewindow
+	bindm = $mainMod, mouse:273, resizewindow
 
 	# Laptop multimedia keys for volume and LCD brightness
 	bindel = ,XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
