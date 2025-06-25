@@ -114,7 +114,7 @@
   xdg.portal = { enable = true; extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; }; 
   
   # Install hyprland WM
-  #programs.hyprland.enable = true; # enable Hyprland
+  programs.hyprland.enable = true; # enable Hyprland
   
   # Configure keymap in X11
   services.xserver.xkb = {

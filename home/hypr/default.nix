@@ -4,7 +4,5 @@ in {
     xdg.configFile."hypr".source = config.lib.file.mkOutOfStoreSymlink dotPath;
 
     wayland.windowManager.hyprland.enable = true; # enable Hyprland
-    home.packages = with pkgs; [ 
-    hyprland-monitor-attached
- ];
+    home.packages = with pkgs; [ hyprland-monitor-attached ];
 }
