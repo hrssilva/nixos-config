@@ -6,7 +6,7 @@
     outputs = { self, nixpkgs, ... }@inputs : {
         templates = {
             haroldo = {
-                path = ./python.nix ;
+                path = ./python ;
                 description = "Python 3 development environment";
             };
         };
