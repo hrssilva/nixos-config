@@ -16,7 +16,8 @@
 
   };
 
-  outputs = { self, nixpkgs, home-manager, dev-flake, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+    dev = (import ./dev) {inherit self; inherit nixpkgs;};
     # Please replace my-nixos with your hostname
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -39,7 +40,6 @@
             # arguments to home.nix
           }
       ];
-      dev = (import ./dev) {inherit self; inherit nixpkgs;};
     };
   };
 }

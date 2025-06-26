@@ -1,7 +1,7 @@
 {self, nixpkgs}:
 {
     description = "A collection of development environments to be used with 'nix develop'";
-    outputs = { self, nixpkgs }@inputs : {
+    outputs = { self, nixpkgs, ... }@inputs : {
         templates = {
             haroldo = {
                 path = ./python.nix ;
