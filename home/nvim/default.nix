@@ -3,11 +3,6 @@
 in {
 
     #xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink dotPath;
-    home.packages = with pkgs; [ 
-        marksman # Install system wide, since I use MD to take notes
-        nil # For nix lsp
-        ripgrep # For telescope
-    ];     
     programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -23,6 +18,11 @@ in {
         plenary-nvim
         telescope-nvim
         which-key-nvim
+    ];
+    extraPackages = with pkgs; [
+        marksman # Install system wide, since I use MD to take notes
+        nil # For nix lsp
+        ripgrep # For telescope
     ];
     extraLuaConfig = ''
     vim.lsp.enable('pyright')
