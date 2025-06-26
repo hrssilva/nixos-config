@@ -13,9 +13,14 @@
       # to avoid problems caused by different versions of nixpkgs.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    dev = {
+        path = "./dev";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, dev, ... }@inputs: {
     # Please replace my-nixos with your hostname
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -26,7 +31,6 @@
         # so the old configuration file still takes effect
         ./configuration.nix
 	./home/system-config
-        ./dev
 	home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
