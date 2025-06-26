@@ -26,6 +26,7 @@
         # so the old configuration file still takes effect
         ./configuration.nix
 	./home/system-config
+        ./dev
 	home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
