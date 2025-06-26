@@ -14,13 +14,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    dev = {
-        url = "path:dev";
-        inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, home-manager, dev, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, dev-flake, ... }@inputs: {
     # Please replace my-nixos with your hostname
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -43,6 +39,7 @@
             # arguments to home.nix
           }
       ];
+      dev = (import ./dev) {inherit self; inherit nixpkgs;};
     };
   };
 }

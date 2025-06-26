@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "dev-flake": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "path": "dev",
+        "type": "path"
+      },
+      "original": {
+        "path": "dev",
+        "type": "path"
+      },
+      "parent": []
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -39,6 +55,7 @@
     },
     "root": {
       "inputs": {
+        "dev-flake": "dev-flake",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs"
       }
