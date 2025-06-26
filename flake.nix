@@ -15,7 +15,7 @@
     };
 
     dev = {
-        path = "./dev";
+        url = "path:dev";
         inputs.nixpkgs.follows = "nixpkgs";
     };
   };
