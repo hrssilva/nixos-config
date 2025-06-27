@@ -1,6 +1,6 @@
 { ... }@args :
 {
-  imports = builtins.map (path: import path args)
+  imports = 
     [ 
       ../hardware/laptop.nix
       ../modules/base.nix
