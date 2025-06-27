@@ -37,7 +37,7 @@
 
 	(powermenu_entry    :label "Suspend" 
 			    :icon "󰤄" 
-			    :onclick "sleep 0.1 && gtklock & systemctl suspend & eww close powermenu &")
+			    :onclick "sleep 0.1 && gtklock & systemctl suspend & eww -c ${EWW_CONFIG_DIR} close powermenu &")
 				
 	(powermenu_entry    :label "Sign out" 
 			    :icon "󰗼" 
