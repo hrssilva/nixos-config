@@ -1,0 +1,12 @@
+{ config, pkgs, username, hostname, ... } :
+{
+  networking.hostName = hostname; # Define your hostname.
+  
+  # Enable networking
+  networking.networkmanager.enable = true;
+  users.users.${username}.extraGroups = [ "networkmanager" ];
+
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+}

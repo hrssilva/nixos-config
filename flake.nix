@@ -1,4 +1,10 @@
-{
+let 
+    passOn = {
+        username = "hrssilva";
+        userdescription = "Haroldo R. S. Silva";
+        usergroups = [];
+        };
+in {
   description = "A simple NixOS flake";
 
   inputs = {
@@ -16,29 +22,33 @@
 
   };
 
+
+
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
-    # Please replace my-nixos with your hostname
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+        # Please replace my-nixos with your hostname
+        nixosConfigurations = {
+            laptop = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
 
-      specialArgs = { inherit inputs; super = self; };
-      modules = [
-        # Import the previous configuration.nix we used,
-        # so the old configuration file still takes effect
-        ./configuration.nix
-	./home/system-config
-	home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
+            specialArgs = { inherit inputs; super = self; hostname = "laptop"; } // passOn;
+            modules = [
+            # Import the previous configuration.nix we used,
+            # so the old configuration file still takes effect
+            ./system/hosts/laptop.nix
+            ./home/system-config
+            home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
 
-            home-manager.users.hrssilva = import ./home;
-	    home-manager.extraSpecialArgs = { super = self; };
-	    home-manager.backupFileExtension = "backup";
-	    # Optionally, use home-manager.extraSpecialArgs to pass
-            # arguments to home.nix
-          }
-      ];
-    };
+                home-manager.users.hrssilva = import ./home;
+                home-manager.extraSpecialArgs = { super = self; };
+                home-manager.backupFileExtension = "backup";
+                # Optionally, use home-manager.extraSpecialArgs to pass
+                # arguments to home.nix
+              }
+            ];
+        };
+      };
   };
 }
