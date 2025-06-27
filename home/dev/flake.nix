@@ -9,6 +9,10 @@
                 path = ./python ;
                 description = "Python 3 development environment";
             };
+            python-pip = {
+                path = ./python-pip ;
+                description = "Python 3 development environment for use with venv and pip";
+            };
         };
     };
 }
