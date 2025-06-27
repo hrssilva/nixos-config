@@ -6,12 +6,6 @@ in {
     programs.neovim = {
     enable = true;
     defaultEditor = true;
-    extraConfig = ''
-    set notermguicolors
-    set expandtab
-    set shiftwidth=4
-    let mapleader = " "
-    '';
     plugins = with pkgs.vimPlugins; [
         nvim-lspconfig
         nvim-treesitter.withAllGrammars
@@ -25,6 +19,12 @@ in {
         ripgrep # For telescope
     ];
     extraLuaConfig = ''
+    vim.g.mapleader = " "
+
+    vim.opt.termguicolors = false
+    vim.opt.expandtab = true
+    vim.opt.shiftwidth = 4
+
     vim.lsp.enable('pyright')
     vim.lsp.enable('tsserver')
     vim.lsp.enable('marksman')
@@ -78,7 +78,7 @@ in {
           -- local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
           -- client.server_capabilities.completionProvider.triggerCharacters = chars
 
-          vim.lsp.completion.enable(true, client.id, args.buf, {autotrigger = true})
+          vim.lsp.completion.enable(true, client.id, args.buf, {autotrigger = false})
         end
           vim.keymap.set('i', '<c-space>', function()
             vim.lsp.completion.get()

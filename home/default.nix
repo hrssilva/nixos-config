@@ -63,6 +63,7 @@
     astroterm
     fzf
     spotify-player
+    gh
   ];
 
   # Allow home-manager as a standalone tool.
