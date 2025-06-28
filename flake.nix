@@ -40,6 +40,7 @@
             nixpkgs.lib.filterAttrs (name: _: builtins.elem name available) all;
 
         laptopArgs = { inherit inputs; super = self; hostname = "laptop"; allusers = (filterUsers ["hrssilva"] allusers);} ;
+        matrixArgs = { inherit inputs; super = self; hostname = "matrix"; allusers = (filterUsers ["neo"] allusers);} ;
     in {
         # Please replace my-nixos with your hostname
         nixosConfigurations = {
@@ -53,6 +54,17 @@
                 ./system/hosts/laptop.nix
                 ] ++ (import ./home {inherit home-manager; allArgs = laptopArgs; }) ;
                 
+            };
+
+            matrix = nixpkgs.lib.nixosSystem {
+                system = "x86_64-linux";
+
+                specialArgs = matrixArgs ;
+                modules = [
+                # Import the previous configuration.nix we used,
+                # so the old configuration file still takes effect
+                ./system/hosts/matrix.nix
+                ] ;
             };
         };
     };
