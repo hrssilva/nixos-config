@@ -1,4 +1,4 @@
-{ pkgs, username, ... } :
+{ pkgs, ... } :
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -12,9 +12,6 @@
   # boot.kernelPackages = pkgs.linuxPackages_testing;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  nix.extraOptions = ''
-        trusted-users = root ${username}
-    '';
   
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

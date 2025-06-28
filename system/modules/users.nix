@@ -1,9 +1,12 @@
-{ config, pkgs, username, userdescription, usergroups, ... } :
+{  allusers, ... } :
 {
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.${username} = {
-    isNormalUser = true;
-    description = userdescription;
-    extraGroups = [ "wheel" ] ++ usergroups;
-  };
+
+  users.users = builtins.mapAttrs (_name: user:
+      {
+        isNormalUser = true;
+        description = user.description;
+        extraGroups = [ "wheel" ] ++ user.groups;
+        hashedPassword = if user.isuserhashed then user.password else null;
+        password = if !user.isuserhashed then user.password else null;
+      }) allusers ;
 }

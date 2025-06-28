@@ -1,10 +1,12 @@
-{ config, pkgs, username, hostname, ... } :
+{ allusers, hostname, ... } :
 {
   networking.hostName = hostname; # Define your hostname.
   
   # Enable networking
   networking.networkmanager.enable = true;
-  users.users.${username}.extraGroups = [ "networkmanager" ];
+  users.users = builtins.mapAttrs (_name: user: {
+    extraGroups = [ "networkmanager" ];
+  }) allusers ;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
