@@ -1,4 +1,4 @@
-{ config, pkgs, username ... }:
+{ config, pkgs, username, ... }:
 {
   imports = [
         # Comment out items to unninstall
@@ -13,8 +13,8 @@
 	./inkscape
   ];
 
-  home.username = "${username}";
-  home.homeDirectory = "/home/${username}";
+  home.username = "hrssilva";
+  home.homeDirectory = "/home/hrssilva";
   nix.registry.dev.to = {
     type = "path";
     path = "${./dev}";

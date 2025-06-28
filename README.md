@@ -13,4 +13,3 @@ The home folder contains all the home-manager configuration, as well as user-spe
 ## Future possibilities
 This setup can be further modularized to separate the [system](#System) and [home](#Home) in their flakes, although this may not be practical given its current size. 
 
-Additionally, the setup is currently multi-host but single-user. This could be expanded by segregating [home](#Home) for multiple users and refactoring how user variables are set up in flake.nix.

@@ -37,20 +37,22 @@
         };
 
         filterUsers = available: all:
-            builtins.filterAttrs (name: _: builtins.elem name available) all;
+            nixpkgs.lib.filterAttrs (name: _: builtins.elem name available) all;
+
+        laptopArgs = { inherit inputs; super = self; hostname = "laptop"; allusers = (filterUsers ["hrssilva"] allusers);} ;
     in {
         # Please replace my-nixos with your hostname
         nixosConfigurations = {
             laptop = nixpkgs.lib.nixosSystem {
                 system = "x86_64-linux";
 
-                specialArgs = { inherit inputs; super = self; hostname = "laptop"; allusers = (filterUsers ["hrssilva"] allusers);} ;
+                specialArgs = laptopArgs ;
                 modules = [
                 # Import the previous configuration.nix we used,
                 # so the old configuration file still takes effect
                 ./system/hosts/laptop.nix
-                ./home
-                ];
+                ] ++ (import ./home {inherit home-manager; allArgs = laptopArgs; }) ;
+                
             };
         };
     };
