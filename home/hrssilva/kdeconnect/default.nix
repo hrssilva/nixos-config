@@ -1,6 +1,6 @@
 { config, pkgs, super, ... }: let 
     pkgName = "kdeconnect";
-    dotPath = "${config.home.homeDirectory}/nixos-config/home/${pkgName}";
+    dotPath = "${config.home.homeDirectory}/nixos-config/home/${config.home.username}/${pkgName}";
 in {
 
     xdg.configFile."${pkgName}".source = config.lib.file.mkOutOfStoreSymlink dotPath;

@@ -4,7 +4,7 @@
 
 { config, pkgs, super, ... }: let 
     pkgName = "kitty";
-    dotPath = "${config.home.homeDirectory}/nixos-config/home/${pkgName}";
+    dotPath = "${config.home.homeDirectory}/nixos-config/home/${config.home.username}/${pkgName}";
     package = builtins.getAttr pkgName pkgs;
 in {
 
