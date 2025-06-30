@@ -1,0 +1,113 @@
+; eww config
+
+; ━━━━ windows ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+(defwindow notifications :monitor 0
+               :geometry (geometry :x 10 :y 0 :height "75%" :width "15%" :anchor "center right")
+               :stacking "overlay" 
+               :exclusive false
+               :namespace "eww-blur"
+  (notification-center :monitor "0"))
+
+ 
+; ━━━━ Notifications ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+
+(defpoll is-paused :initial false :interval "1s" "dunstctl is-paused")
+(defvar notify-paused false)
+(defvar pause-notify "dunstctl set-paused true & eww -c ~/.config/eww/notifications update notify-paused=true")
+(defvar resume-notify "dunstctl set-paused false & eww -c ~/.config/eww/notifications update notify-paused=false")
+
+(defpoll notify-list :initial '{"head": [], "full": []' :interval "1s" "~/.config/eww/modules/notify-history.sh")
+
+(defvar clear-all "dunstctl history-clear")
+(defvar expanded-id -1)
+(defvar is-expanded false)
+
+
+(defwidget notification-center [monitor]
+  (box 
+    :orientation "v" 
+    :class "base-glass dashboard-bg" 
+    :spacing 20
+    :space-evenly false
+    (controller)
+    (history)
+  )
+)
+
+(defwidget controller []
+  (box :orientation "h" :space-evenly false :spacing 10  
+    (box 
+        (do-not-disturb)
+    )
+    (box 
+        (clear-history)
+    )
+  )
+)
+
+(defwidget do-not-disturb []
+    (checkbox 
+        :class "notify-checkbox"
+        :checked is-paused
+        :onchecked pause-notify
+        :onunchecked resume-notify
+        (box :orientation "h"
+            :class "notify-checkbox-content"
+            (centerbox
+                :orientation 'h'
+                (label
+                 :class 'notify-checkbox-icon icon-left'
+                 :text '󰽥'
+                )
+                (box 
+                 :class 'notify-checkbox-fill'
+                 (label :text '󰽥󰽥󰽥󰽥󰽥󰽥')
+                )    
+                (label
+                 :class 'notify-checkbox-icon icon-right'
+                 :text '󰽥'
+                )
+            )
+        )
+    )
+)
+
+(defwidget clear-history [] 
+    (button 
+        :onclick clear-all
+        :class "clear-button"
+        (label :text "clear")
+    )
+)
+
+
+(defwidget history []
+    (box 
+        :orientation "v" 
+        :class "history-box"
+        :spacing 5 
+        :space-evenly false
+        (for entry in {notify-list["head"]}
+            (eventbox
+                :onclick "eww -c ~/.config/eww/notifications update is-expanded=${entry.id.data == expanded-id ? !is-expanded : true} ; eww -c ~/.config/eww/notifications update expanded-id=${entry.id.data}"
+                (box 
+                    :class "history-entry"
+                    :spacing 0 
+                    :space-evenly false
+                    :orientation "v"
+                    (label :text "${entry.summary.data}")
+                    (label 
+                        ;:visible {is-expanded && (expanded-id == entry.id.data) ? false : true} 
+                        :truncate true 
+                        :text "${captures(entry.body.data, '(^.*[\n])*')[0][0]}")
+                    (revealer
+                        :reveal {is-expanded && (expanded-id == entry.id.data)}
+                        :transition "slidedown"
+                        (label :text "${entry.body.data}")
+                    )
+                )
+            )
+        )
+    )
+)

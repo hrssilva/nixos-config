@@ -26,6 +26,7 @@ in {
 	$fileManager = dolphin
 	$menu = wofi --show drun
 	$dashboard = eww open -c ~/.config/eww/dashboard --toggle dashboard
+        $notifications = eww open -c ~/.config/eww/notifications --toggle notifications
 	$powermenu = eww open -c ~/.config/eww/powermenu --toggle powermenu
 	$clipboard = clipman pick -t wofi
 	$printscreen = grim -g "$(slurp -d)" - | tee ~/print.png | wl-copy
@@ -266,9 +267,10 @@ in {
 	bind = $mainMod, F, fullscreen, 0
 	bind = $mainMod SHIFT, F, fullscreenstate, 0, 2 # fake fullscreen
 
-	# Dashboard and powermenu
-	bind = $mainMod, D, exec, $dashboard
-	bind = $mainMod, P, exec, $powermenu
+        # EWW menus
+        bind = $mainMod, D, exec, $dashboard
+        bind = $mainMod, P, exec, $powermenu
+        bind = $mainMod, N, exec, $notifications
 
 	# Print Screen
 	bind = , Print, exec, $printscreen
