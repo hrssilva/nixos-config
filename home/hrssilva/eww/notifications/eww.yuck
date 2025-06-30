@@ -104,7 +104,7 @@
                     (revealer
                         :reveal {is-expanded && (expanded-id == entry.id.data)}
                         :transition "slidedown"
-                        (label :text "${entry.body.data}")
+                        (label :wrap true :text  "${entry.body.data}")
                     )
                 )
             )
