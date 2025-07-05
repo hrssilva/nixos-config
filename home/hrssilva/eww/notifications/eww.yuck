@@ -62,7 +62,7 @@
                 )
                 (box 
                  :class 'notify-checkbox-fill'
-                 (label :text '󰽥󰽥󰽥󰽥󰽥󰽥')
+                 (label :text '󰽥󰽥󰽥󰽥󰽥󰽥') ; There must be a bether way to do this...
                 )    
                 (label
                  :class 'notify-checkbox-icon icon-right'
@@ -96,16 +96,17 @@
                     :spacing 0 
                     :space-evenly false
                     :orientation "v"
-                    (label :text "${entry.summary.data}")
                     (label 
-                        ;:visible {is-expanded && (expanded-id == entry.id.data) ? false : true} 
                         :truncate true 
-                        :text "${captures(entry.body.data, '(^.*[\n])*')[0][0]}")
-                    (revealer
-                        :reveal {is-expanded && (expanded-id == entry.id.data)}
-                        :transition "slidedown"
-                        (label :wrap true :text  "${entry.body.data}")
-                    )
+                        :show-truncated true
+                        :justify "center"
+                        ;:text "${captures(entry.body.data, '(^.*[\n])*')[0][0]}")
+                        :markup "${entry.message.data}")
+                    ;(revealer
+                    ;    :reveal {is-expanded && (expanded-id == entry.id.data)}
+                    ;    :transition "slidedown"
+                    ;    (label :wrap true :wrap-mode "char" :text  "${entry.body.data}")
+                    ;)
                 )
             )
         )
