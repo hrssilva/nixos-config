@@ -96,17 +96,24 @@
                     :spacing 0 
                     :space-evenly false
                     :orientation "v"
+                    :height 60
                     (label 
                         :truncate true 
                         :show-truncated true
                         :justify "center"
-                        ;:text "${captures(entry.body.data, '(^.*[\n])*')[0][0]}")
-                        :markup "${entry.message.data}")
-                    ;(revealer
-                    ;    :reveal {is-expanded && (expanded-id == entry.id.data)}
-                    ;    :transition "slidedown"
-                    ;    (label :wrap true :wrap-mode "char" :text  "${entry.body.data}")
-                    ;)
+                        :text "${entry.summary.data}"
+                    )
+                    (label 
+                        :truncate true 
+                        :show-truncated true
+                        :lines 2
+                        :wrap true
+                        :justify "center"
+                        ;:text "${entry.summary.data}"
+                        :text "${captures(entry.body.data, '(^.*[\n])*')[0][0]}"
+                        ;:text "${entry.body.data}")
+                        ;:markup "${entry.message.data}"
+                    )
                 )
             )
         )
