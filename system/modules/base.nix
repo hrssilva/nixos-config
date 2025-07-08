@@ -26,6 +26,7 @@
     playerctl
   ];
 
+  programs.tmux.enable = true;
   environment.variables.EDITOR = "nvim";
 
   system.stateVersion = "24.11"; # Did you read the comment?

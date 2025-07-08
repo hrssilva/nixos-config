@@ -13,12 +13,16 @@
           # to avoid problems caused by different versions of nixpkgs.
           inputs.nixpkgs.follows = "nixpkgs";
         };
+        disko = {
+            url = "github:nix-community/disko/";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
 
     };
 
 
 
-    outputs = { self, nixpkgs, home-manager, ... }@inputs: 
+    outputs = { self, nixpkgs, home-manager, disko, ... }@inputs: 
     let 
         allusers = {
             hrssilva = {
@@ -49,9 +53,7 @@
 
                 specialArgs = laptopArgs ;
                 modules = [
-                # Import the previous configuration.nix we used,
-                # so the old configuration file still takes effect
-                ./system/hosts/laptop.nix
+                ./system/hosts/laptop
                 ] ++ (import ./home {inherit home-manager; allArgs = laptopArgs; }) ;
                 
             };
@@ -61,9 +63,8 @@
 
                 specialArgs = matrixArgs ;
                 modules = [
-                # Import the previous configuration.nix we used,
-                # so the old configuration file still takes effect
-                ./system/hosts/matrix.nix
+                disko.nixosModules.disko
+                ./system/hosts/matrix
                 ] ;
             };
         };
