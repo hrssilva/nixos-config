@@ -43,6 +43,7 @@ in {
 	# exec-once = waybar & hyprpaper & firefox
 
 	exec-once = bash ~/.config/hypr/scripts/startup.sh
+	exec-once = termux new-session -d -s default
 	exec-once = swww-daemon -f xrgb
 	exec-once = swww restore
 	exec-once = swww img "/home/hrssilva/Pictures/Wallpapers/11-0-Day.jpg"
