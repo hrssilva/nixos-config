@@ -22,7 +22,7 @@ in {
 	# See https://wiki.hyprland.org/Configuring/Keywords/
 
 	# Set programs that you use
-	$terminal = kitty -1
+	$terminal = kitty -1 tmux a
 	$fileManager = dolphin
 	$menu = wofi --show drun
 	$dashboard = eww open -c ~/.config/eww/dashboard --toggle dashboard
