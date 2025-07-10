@@ -12,6 +12,7 @@ in {
         plenary-nvim
         telescope-nvim
         which-key-nvim
+        vim-obsession
     ];
     extraPackages = with pkgs; [
         marksman # Install system wide, since I use MD to take notes

@@ -11,6 +11,7 @@
 	./kdeconnect
 	./dunst
 	./inkscape
+        ./tmux
   ];
 
   home.username = "hrssilva";
