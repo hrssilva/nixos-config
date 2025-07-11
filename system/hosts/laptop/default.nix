@@ -8,6 +8,7 @@
       ../../modules/users.nix
       ../../modules/fonts.nix
       ../../modules/sound.nix
+      ../../modules/cloudflare.nix
       ../../modules/locales/abnt2.nix
       ../../modules/displaymanagers/plasma.nix
       ../../modules/displaymanagers/hyprland.nix
