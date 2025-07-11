@@ -18,6 +18,7 @@ in
 
           home-manager.extraSpecialArgs = {
             inherit  super;
+            hostname = allArgs.hostname;
           };
         }
     ]

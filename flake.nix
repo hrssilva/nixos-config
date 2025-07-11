@@ -30,6 +30,7 @@
                 password = "$6$2n8MhM9f4s7Fgpts$KJQCwjzJJYq3e1v2VkI6UC1QgpEewkh9HXQ8A.a1NLXlX/d9tFCa43k5WzaWh6bHleIBlP3lYbdY0TndSZ6L./";
                 isuserhashed = true;
                 groups = [];
+                ssh-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB0sl0eS13w8hxRqrdhyEvbLXe3IlvbeTOkJd6wm6qY1";
                 };
 
             neo = {
@@ -44,7 +45,7 @@
             nixpkgs.lib.filterAttrs (name: _: builtins.elem name available) all;
 
         laptopArgs = { inherit inputs; super = self; hostname = "laptop"; allusers = (filterUsers ["hrssilva"] allusers);} ;
-        matrixArgs = { inherit inputs; super = self; hostname = "matrix"; allusers = (filterUsers ["neo"] allusers);} ;
+        matrixArgs = { inherit inputs; super = self; hostname = "matrix"; allusers = (filterUsers ["hrssilva"] allusers);} ;
     in {
         # Please replace my-nixos with your hostname
         nixosConfigurations = {
@@ -65,7 +66,7 @@
                 modules = [
                 disko.nixosModules.disko
                 ./system/hosts/matrix
-                ] ;
+                ] ++ (import ./home {inherit home-manager; allArgs = matrixArgs; }) ;
             };
         };
     };

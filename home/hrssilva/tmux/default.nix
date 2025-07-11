@@ -8,10 +8,11 @@
         enable = true;
         clock24 = true;
         keyMode = "vi";
-        prefix = "C-a";
         sensibleOnTop = true;
+        prefix = "C-s";
         plugins = with pkgs.tmuxPlugins; [
             resurrect
+            yank
         ];
         extraConfig = ''
             set -g @resurrect-strategy-nvim 'session'
