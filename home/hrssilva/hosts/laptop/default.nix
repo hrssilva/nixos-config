@@ -1,5 +1,5 @@
 {pkgs, lib, hostname, ...}:
-lib.mkIf (hostname == "laptop") {
+{
   imports = [
         # Comment out items to unninstall
 	./hypr

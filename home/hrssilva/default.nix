@@ -4,8 +4,6 @@
         # Comment out items to unninstall
   	./nvim
         ./tmux
-        ./hosts/laptop
-        ./hosts/matrix
   ];
 
   home.username = "hrssilva";

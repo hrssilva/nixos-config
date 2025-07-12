@@ -1,25 +1,33 @@
 { home-manager, allArgs, ... }:
+
 let
-    perUserSystemConfigs = builtins.filter builtins.pathExists (
-        builtins.map (name: ./. + "/${name}/system-config") (builtins.attrNames allusers)
-      );
-    allusers = allArgs.allusers;
-    super = allArgs.super;
-in 
-    
-    perUserSystemConfigs ++ [
+  allusers = allArgs.allusers;
+  super = allArgs.super;
+  hostname = allArgs.hostname;
+in
+[
+  home-manager.nixosModules.home-manager {
+    home-manager.useGlobalPkgs = true;
+    home-manager.useUserPackages = true;
+    home-manager.backupFileExtension = "backup";
 
-        home-manager.nixosModules.home-manager {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.backupFileExtension = "backup";
+    home-manager.users = builtins.mapAttrs (name: user: {
+      imports = [
+        ./${name}
+        ./${name}/hosts/${hostname}
+      ];
 
-          home-manager.users = builtins.mapAttrs (name: user: import ./${name}  ) allusers;
+      # opcional: passar variáveis personalizadas
+      home = {
+        username = name;
+        homeDirectory = "/home/${name}";
+      };
 
-          home-manager.extraSpecialArgs = {
-            inherit  super;
-            hostname = allArgs.hostname;
-          };
-        }
-    ]
+    }) allusers;
+
+    home-manager.extraSpecialArgs = {
+      inherit super hostname;
+    };
+  }
+]
 
