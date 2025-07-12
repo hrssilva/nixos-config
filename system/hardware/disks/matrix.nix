@@ -96,7 +96,7 @@
               };
             };
             db = {
-              size = "remaining";
+              size = "100%";
               content = {
                 type = "filesystem";
                 format = "ext4";
