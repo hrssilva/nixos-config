@@ -11,8 +11,7 @@
       ../../modules/sound.nix
       ../../modules/ssh.nix
       ../../modules/locales/abnt2.nix
-      #../modules/displaymanagers/plasma.nix
-      #../modules/displaymanagers/hyprland.nix
+      ./netdata.nix
     ];
 
   boot.swraid.enable = true;
