@@ -26,7 +26,7 @@ in
     }) allusers;
 
     home-manager.extraSpecialArgs = {
-      inherit super hostname;
+      inherit super hostname allusers;
     };
   }
 ]
