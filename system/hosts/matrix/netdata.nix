@@ -7,6 +7,9 @@
             global = {
                 "memory mode" = "ram";     
                 "update every" = "1";
+                "web files owner" = "netdata";  
+                "web files group" = "netdata";  
+                "web directory" = "${pkgs.netdata}/share/netdata/web";
             };
         };
     };
