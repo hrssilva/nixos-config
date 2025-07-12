@@ -15,7 +15,7 @@
       #../modules/displaymanagers/hyprland.nix
     ];
 
-  boot.initrd.swraid.enable = true;
+  boot.swraid.enable = true;
   
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
