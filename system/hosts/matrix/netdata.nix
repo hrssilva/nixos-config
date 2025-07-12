@@ -2,7 +2,7 @@
 
 {
   services.netdata = {
-    package = pkgs.netdata.override { withCloudUi = true; };
+    package = (pkgs.netdata.override { withCloudUi = true; });
     enable = true;
 
    # config = {
