@@ -1,5 +1,5 @@
-{ config, pkgs, super, ... }: let 
-    dotPath = "${config.home.homeDirectory}/nixos-config/home/${config.home.username}/hypr/scripts";
+{ config, pkgs, super, hostname, ... }: let 
+    dotPath = "${config.home.homeDirectory}/nixos-config/home/${config.home.username}/hosts/${hostname}/hypr/scripts";
 in {
     xdg.configFile."hypr/scripts".source = config.lib.file.mkOutOfStoreSymlink dotPath;
 
