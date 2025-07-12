@@ -11,10 +11,14 @@
                 "web files group" = "netdata";  
                 "web directory" = "${pkgs.netdata}/share/netdata/web";
             };
+            web = {
+                "bind to" = "localhost:19999 *:19999";
+                "enable ssl" = "no";  
+            };
         };
     };
 
-    networking.firewall.allowedTCPPorts = [ 19999 ]; # Porta padrão do Netdata
+    networking.firewall.allowedTCPPorts = [ 19999 ]; 
 
     environment.systemPackages = with pkgs; [
         netdata
