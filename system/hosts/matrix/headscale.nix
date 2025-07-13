@@ -11,6 +11,7 @@ in {
             dns = {
                 base_domain = "tailnet.com";
             };
+            server_url = "http://127.0.0.1:8083";
         };
     };
 
