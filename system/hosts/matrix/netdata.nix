@@ -5,24 +5,11 @@
     package = (pkgs.netdata.override { withCloudUi = true; });
     enable = true;
 
-   # config = {
-   #   global = {
-   #     "memory mode" = "ram";
-   #     "update every" = "1";
-   #     "web files owner" = "netdata";
-   #     "web files group" = "netdata";
-   #     "web directory" = "${pkgs.netdata}/share/netdata/web";
-   #   };
-
-   #   web = {
-   #     "default port" = "19999";
-   #     "bind to" = "localhost:19999 *:19999";
-   #     "enable web responses gzip" = "yes";
-   #     "enable dashboard" = "yes";  
-   #     "serve dashboard" = "yes";   
-   #     "enable ssl" = "no";
-   #   };
-   # };
+    config = {
+      global = {
+        "update every" = "5";
+      };
+    };
   };
 
   networking.firewall.allowedTCPPorts = [ 19999 ];
