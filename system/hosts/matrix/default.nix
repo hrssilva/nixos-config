@@ -13,6 +13,8 @@
       ../../modules/locales/abnt2.nix
       ./netdata.nix
       ./postgres.nix
+      ./headscale.nix
+      ../../modules/tailscale.nix
     ];
 
   boot.swraid.enable = true;

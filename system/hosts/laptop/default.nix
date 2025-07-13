@@ -12,6 +12,7 @@
       ../../modules/locales/abnt2.nix
       ../../modules/displaymanagers/plasma.nix
       ../../modules/displaymanagers/hyprland.nix
+      ../../modules/tailscale.nix
     ];
 
 
