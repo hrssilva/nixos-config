@@ -17,8 +17,8 @@
             "home-server" = {
                 ingress = {
                     "lighthouse.hrssilva.dev.br" = "http://localhost:8083";
-                    default = "http_status:404";
                 };
+                default = "http_status:404";
             };
         };
     };
