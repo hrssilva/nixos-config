@@ -12,6 +12,7 @@
       ../../modules/ssh.nix
       ../../modules/locales/abnt2.nix
       ./netdata.nix
+      ./postgres.nix
     ];
 
   boot.swraid.enable = true;
