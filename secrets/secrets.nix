@@ -5,6 +5,5 @@ let
 in
 {
   "exitnode-tailscale.age".publicKeys = systems;
-  "exitnode-vpn-user.age".publicKeys = systems;
-  "exitnode-vpn-password.age".publicKeys = systems;
+  "exitnode-vpn-env.age".publicKeys = systems;
 }

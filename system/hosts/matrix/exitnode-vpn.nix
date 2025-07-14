@@ -13,12 +13,14 @@
             ];
             environment = {
                 VPN_SERVICE_PROVIDER = "protonvpn";
+                VPN_TYPE = "wireguard";
+                FREE_ONLY = "on";
+                VPN_PORT_FORWARDING = "on";
                 TZ = "America/Sao_Paulo";
                 UPDATER_PERIOD = "24h";
             };
             environmentFiles = [
-                config.age.secrets.vpn-password.path
-                config.age.secrets.vpn-user.path
+                config.age.secrets.vpn-env.path
             ];
             volumes = [
                 "/var/lib/exitnode-vpn/gluetun:/gluetun"
