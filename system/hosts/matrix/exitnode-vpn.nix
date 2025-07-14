@@ -8,7 +8,7 @@ let
 in {
     virtualisation.docker.enable = true;
 
-    system.activationScripts."exitnode-secret" = lib.stringAfter [ "etc" "agenix" "agenixRoot" ] ''
+    system.activationScripts."exitnode-secret" = lib.stringAfter [ "etc" "agenix" ] ''
         v-tailscale-key=$(cat "${config.age.secrets.tailscale.path}")
         v-vpn-password=$(cat "${config.age.secrets.vpn-password.path}")
         v-vpn-username=$(cat "${config.age.secrets.vpn-user.path}")
