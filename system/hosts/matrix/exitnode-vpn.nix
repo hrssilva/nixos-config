@@ -28,6 +28,7 @@
         tailscale-exit = {
             image = "tailscale/tailscale";
             autoStart = true;
+            dependsOn = [ "gluetun" ];
 
             extraOptions = [ 
                 "--network='container:gluetun'" 
