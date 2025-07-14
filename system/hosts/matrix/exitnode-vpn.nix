@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 {
 
-    virtualisation.oci-containers.backend = "dcker";
+    virtualisation.oci-containers.backend = "docker";
     virtualisation.oci-containers.containers = {
         gluetun = {
             image = "qmcgaw/gluetun";
