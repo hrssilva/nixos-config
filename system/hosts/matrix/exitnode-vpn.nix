@@ -1,8 +1,7 @@
 { pkgs, config, lib, ... }:
 {
-    virtualisation.docker.enable = true;
 
-
+    virtualisation.oci-containers.backend = "dcker";
     virtualisation.oci-containers.containers = {
         gluetun = {
             image = "qmcgaw/gluetun";
