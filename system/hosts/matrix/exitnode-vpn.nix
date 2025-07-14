@@ -6,7 +6,7 @@ let
     v-vpn-username = "@v-vpn-username@";
 
 in {
-    virtualisation.podman.enable = true;
+    virtualisation.docker.enable = true;
 
     system.activationScripts."exitnode-secret" = lib.stringAfter [ "etc" "agenix" "agenixRoot" ] ''
         v-tailscale-key=$(cat "${config.age.secrets.tailscale.path}")
@@ -19,8 +19,10 @@ in {
             image = "qmcgaw/gluetun";
             autoStart = true;
 
-            capAdd = [ "NET_ADMIN" ];
-            extraOptions = [ "--device=/dev/net/tun:/dev/net/tun" ];
+            extraOptions = [ 
+                "--device=/dev/net/tun:/dev/net/tun"
+                "--cap-add=NET_ADMIN"
+            ];
             environment = {
                 VPN_SERVICE_PROVIDER = "protonvpn";
                 OPENVPN_USER = v-vpn-username;
@@ -28,20 +30,31 @@ in {
                 TZ = "America/Sao_Paulo";
                 UPDATER_PERIOD = "24h";
             };
+            volumes = [
+                "/var/lib/exitnode-vpn/gluetun:/gluetun"
+            ];
         };
 
         tailscale-exit = {
             image = "tailscale/tailscale";
             autoStart = true;
 
-            capAdd = [ "NET_ADMIN" "NET_RAW" ];
-            extraOptions = [ "--network='service:gluetun'" ];
+            extraOptions = [ 
+                "--network='service:gluetun'" 
+                "--cap-add=NET_ADMIN"
+                "--cap-add=NET_RAW"
+            ];
             environment = {
                 TS_HOSTNAME = "vpn-exit-node";
                 TS_EXTRA_ARGS = "--advertise-exit-node";
                 TS_STATE_DIR = "/state";
                 TS_AUTHKEY = v-tailscale-key;
             };
+            volumes = [
+                "/var/lib/exitnode-vpn/tailscale/var/lib:/var/lib"
+                "/var/lib/exitnode-vpn/tailscale/state:/state"
+                "/dev/net/tun:/dev/net/tun"
+            ];
         };
     };
 }
