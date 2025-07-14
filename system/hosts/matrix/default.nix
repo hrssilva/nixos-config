@@ -13,7 +13,7 @@
       ../../modules/locales/abnt2.nix
       ./netdata.nix
       ./postgres.nix
-      ./headscale.nix
+      #./headscale.nix #gave up on headscale until I actually try to setup DDNS
       ../../modules/tailscale.nix
     ];
 
