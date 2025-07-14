@@ -1,0 +1,10 @@
+
+let
+  matrix = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBTszRSxo6CmRhwZagyveu3G3PHI/PjHuqe6XF2lciVd";
+  systems = [ matrix ];
+in
+{
+  "exitnode-tailscale.age".publicKeys = systems;
+  "exitnode-vpn-user.age".publicKeys = systems;
+  "exitnode-vpn-password.age".publicKeys = systems;
+}

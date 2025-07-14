@@ -1,4 +1,4 @@
-{ pkgs, ... } :
+{ pkgs, inputs, ... } :
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -24,6 +24,7 @@
     neovim
     brightnessctl
     playerctl
+    inputs.agenix.packages."${system}".default
   ];
 
   programs.tmux.enable = true;

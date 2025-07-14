@@ -11,11 +11,12 @@
       ../../modules/sound.nix
       ../../modules/ssh.nix
       ../../modules/locales/abnt2.nix
+      ../../modules/tailscale.nix
+      ../../modules/cloudflare.nix
       ./netdata.nix
       ./postgres.nix
       #./headscale.nix #gave up on headscale until I actually try to setup DDNS
-      ../../modules/tailscale.nix
-      ../../modules/cloudflare.nix
+      #./exitnode-vpn.nix
     ];
 
   boot.swraid.enable = true;

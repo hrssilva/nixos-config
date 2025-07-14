@@ -17,12 +17,15 @@
             url = "github:nix-community/disko/";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-
+        agenix = {
+            url = "github:ryantm/agenix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
 
 
-    outputs = { self, nixpkgs, home-manager, disko, ... }@inputs: 
+    outputs = { self, nixpkgs, home-manager, disko, agenix, ... }@inputs: 
     let 
         allusers = {
             hrssilva = {
@@ -55,6 +58,7 @@
 
                 specialArgs = laptopArgs ;
                 modules = [
+                agenix.nixosModules.default
                 ./system/hosts/laptop
                 ] ++ (import ./home {inherit home-manager; allArgs = laptopArgs; }) ;
                 
@@ -66,6 +70,7 @@
                 specialArgs = matrixArgs ;
                 modules = [
                 disko.nixosModules.disko
+                agenix.nixosModules.default
                 ./system/hosts/matrix
                 ] ++ (import ./home {inherit home-manager; allArgs = matrixArgs; }) ;
             };
