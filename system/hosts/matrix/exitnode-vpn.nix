@@ -15,7 +15,6 @@
                 VPN_SERVICE_PROVIDER = "protonvpn";
                 VPN_TYPE = "wireguard";
                 FREE_ONLY = "on";
-                VPN_PORT_FORWARDING = "on";
                 TZ = "America/Sao_Paulo";
                 UPDATER_PERIOD = "24h";
             };
