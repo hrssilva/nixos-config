@@ -30,7 +30,7 @@
             autoStart = true;
 
             extraOptions = [ 
-                "--network='service:gluetun'" 
+                "--network='container:gluetun'" 
                 "--cap-add=NET_ADMIN"
                 "--cap-add=NET_RAW"
             ];
