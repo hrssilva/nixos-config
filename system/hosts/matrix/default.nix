@@ -21,6 +21,14 @@
     ];
 
   boot.swraid.enable = true;
+  # Forwarding for routing
+  boot.kernel.sysctl = {
+      # if you use ipv4, this is all you need
+      "net.ipv4.conf.all.forwarding" = true;
+
+      # If you want to use it for ipv6
+      "net.ipv6.conf.all.forwarding" = true;
+  };
   
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
