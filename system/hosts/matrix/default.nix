@@ -15,6 +15,7 @@
       ./postgres.nix
       #./headscale.nix #gave up on headscale until I actually try to setup DDNS
       ../../modules/tailscale.nix
+      ../../modules/cloudflare.nix
     ];
 
   boot.swraid.enable = true;
