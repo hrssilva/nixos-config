@@ -6,7 +6,6 @@ let
     v-vpn-username = "@v-vpn-username@";
 
 in {
-    import = [ ./secrets.nix ];
     virtualisation.podman.enable = true;
 
     system.activationScripts."exitnode-secret" = lib.stringAfter [ "etc" "agenix" "agenixRoot" ] ''

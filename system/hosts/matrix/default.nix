@@ -13,6 +13,7 @@
       ../../modules/locales/abnt2.nix
       ../../modules/tailscale.nix
       ../../modules/cloudflare.nix
+      ./secrets.nix
       ./netdata.nix
       ./postgres.nix
       #./headscale.nix #gave up on headscale until I actually try to setup DDNS
