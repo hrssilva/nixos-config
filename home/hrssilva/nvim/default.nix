@@ -27,6 +27,15 @@ in {
     vim.opt.expandtab = true
     vim.opt.shiftwidth = 4
 
+    -- Disable compatibility with old-time vi
+    vim.opt.compatible = false
+
+    -- Enable filetype detection, plugin, and indentation
+    vim.cmd("filetype plugin on")
+
+    -- Enable syntax highlighting
+    vim.cmd("syntax on")
+
     vim.lsp.enable('pyright')
     vim.lsp.enable('tsserver')
     vim.lsp.enable('marksman')
