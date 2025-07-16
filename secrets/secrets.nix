@@ -6,4 +6,5 @@ in
 {
   "exitnode-tailscale.age".publicKeys = systems;
   "exitnode-vpn-env.age".publicKeys = systems;
+  "nextcloud-password.age".publicKeys = systems;
 }

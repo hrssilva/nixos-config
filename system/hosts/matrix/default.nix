@@ -18,6 +18,7 @@
       ./postgres.nix
       #./headscale.nix #gave up on headscale until I actually try to setup DDNS
       ./exitnode-vpn.nix
+      ./nextcloud.nix
     ];
 
   boot.swraid.enable = true;
