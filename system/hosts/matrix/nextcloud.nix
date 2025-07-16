@@ -8,7 +8,7 @@
             inherit (config.services.nextcloud.package.packages.apps) mail contacts calendar tasks deck whiteboard spreed onlyoffice;
         };
         extraAppsEnable = true;
-
+        # Might need to place some nginx configs instead
         hostName = "localhost";
         config = {
             adminpassFile = config.age.secrets.nextcloud-password.path;
