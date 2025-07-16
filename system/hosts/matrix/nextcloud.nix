@@ -13,7 +13,7 @@
         config = {
             adminpassFile = config.age.secrets.nextcloud-password.path;
             dbtype = "pgsql";
-            dbhost = "/run/postgres";
+            dbhost = "/run/postgresql";
         };
 
         settings = {
