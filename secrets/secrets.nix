@@ -7,4 +7,6 @@ in
   "exitnode-tailscale.age".publicKeys = systems;
   "exitnode-vpn-env.age".publicKeys = systems;
   "nextcloud-password.age".publicKeys = systems;
+  "cloudflared.age".publicKeys = systems;
+  "cloudflared-home-server.age".publicKeys = systems;
 }

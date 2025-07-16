@@ -37,4 +37,18 @@
             }
         ];
     };
+
+    services.cloudflared = {
+        enable = true;
+        certificateFile = config.age.secrets.cloudflared.path;
+        tunnels = {
+            "home-server" = {
+                ingress = {
+                    "cloud.hrssilva.dev.br" = "http://localhost:80";
+                };
+                default = "http_status:404";
+                credentialsFile = config.age.secrets.cloudflared-home-server.path;
+            };
+        };
+    };
 }
