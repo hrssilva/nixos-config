@@ -25,4 +25,15 @@
         datadir = "/mnt/data/nextcloud";
 
     };
+
+    services.postgresql = {
+        enable = true;
+        ensureDatabases = [ "nextcloud" ];
+        ensureUsers = [
+            {
+                name = "nextcloud";
+                ensureDBOwnership = true;
+            }
+        ];
+    };
 }
