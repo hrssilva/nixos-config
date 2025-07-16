@@ -22,7 +22,8 @@
                 "matrix.weasel-cliff.ts.net"
             ];
         };
-        datadir = "/mnt/data/nextcloud";
+        home = "/var/lib/nextcloud-server";
+        datadir = "/mnt/data/nextcloud-server";
 
     };
 
