@@ -17,10 +17,16 @@
         };
 
         settings = {
+            trusted_proxies = [
+                "cloud.hrssilva.dev.br"
+                "matrix.weasel-cliff.ts.net"
+                "localhost"
+            ];
             trusted_domains = [
                 "cloud.hrssilva.dev.br"
                 "matrix.weasel-cliff.ts.net"
             ];
+            overwriteprotocol = "https";
         };
         home = "/var/lib/nextcloud-server";
         datadir = "/mnt/data/nextcloud-server";
