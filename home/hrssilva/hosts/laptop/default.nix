@@ -10,6 +10,7 @@
 	./kdeconnect
 	./dunst
 	./inkscape
+        ./wezterm
   ];
 
   # Packages that should be installed to the user profile.
