@@ -33,17 +33,6 @@
 
     };
 
-    services.postgresql = {
-        enable = true;
-        ensureDatabases = [ "nextcloud" ];
-        ensureUsers = [
-            {
-                name = "nextcloud";
-                ensureDBOwnership = true;
-            }
-        ];
-    };
-
     services.cloudflared = {
         enable = true;
         certificateFile = config.age.secrets.cloudflared.path;

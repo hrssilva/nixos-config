@@ -1,5 +1,6 @@
 { ... }:
 {
+    age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ]; # isn't set automatically when openssh is not setup
     age.secrets = {
         tailscale.file = ../../../secrets/exitnode-tailscale.age;
         vpn-env.file = ../../../secrets/exitnode-vpn-env.age;

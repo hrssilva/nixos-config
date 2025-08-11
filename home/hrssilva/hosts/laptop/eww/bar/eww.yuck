@@ -36,6 +36,7 @@
       (camera)
       (mic)
       (speakers)
+      (power)
       (battery)
       (time)
       (date))))
@@ -125,6 +126,16 @@
       :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%"))))
 
 ; ━━━━ battery ╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+(defpoll profile :initial "balanced" :interval "2s" "cat /sys/firmware/acpi/platform_profile")
+(defwidget power []
+    (box :class "battery"
+        (label 
+            :class "icon ${ EWW_BATTERY["BAT1"].capacity <= 10 ? 'critical' : '' }"
+            :text "${profile}"
+        )
+    )
+)
+
 
 (defwidget battery []
   (box :class "battery"

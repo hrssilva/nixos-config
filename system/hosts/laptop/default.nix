@@ -22,9 +22,9 @@
   boot.loader.systemd-boot.configurationLimit = 10;
 
   
-  boot.kernelParams = [
-    "intel_pstate=disable"
-  ];
+  #boot.kernelParams = [
+  #  "intel_pstate=disable"
+  #];
 
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
