@@ -26,6 +26,8 @@ in {
     vim.opt.termguicolors = false
     vim.opt.expandtab = true
     vim.opt.shiftwidth = 4
+    
+    vim.g.vimwiki_url_maxsave = 0
 
     -- Disable compatibility with old-time vi
     vim.opt.compatible = false
