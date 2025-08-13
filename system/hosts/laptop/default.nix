@@ -1,4 +1,4 @@
-{ ... }@args :
+{pkgs, ... }@args :
 {
   imports = 
     [ 
@@ -28,24 +28,7 @@
 
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-    services.avahi = {
-        enable = true;
-        nssmdns = true;
-        openFirewall = true;
-        publish = {
-            enable = true;
-            userServices = true;
-        };
-    };
-    services.printing = {
-        listenAddresses = [ "localhost:631" "impressoras.inf.ufrgs.br:631"];
-        allowFrom = [ "all" ];
-        browsing = true;
-        defaultShared = true;
-        openFirewall = true;
-    };
-
+    
   # Enable bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -89,8 +72,19 @@
   
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+services.avahi = {
+  enable = true;
+  nssmdns4 = true;
+  openFirewall = true;
+};
 
+services.printing = {
+  enable = true;
+  drivers = with pkgs; [
+    cups-filters
+    cups-browsed
+  ];
+};
 
   # Install steam
   programs.steam.enable = true;
