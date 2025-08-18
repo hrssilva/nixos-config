@@ -45,7 +45,6 @@
     extraOptions = [
       "--pull=always"
       "--name=nextcloud-aio-mastercontainer"
-      "--restart=always"
     ];
   };
 
