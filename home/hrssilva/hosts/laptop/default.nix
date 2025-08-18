@@ -37,6 +37,7 @@
     spotify-player
     gh
     nextcloud-client
+    zathura
   ];
 
   # starship - a customizable prompt for any shell
