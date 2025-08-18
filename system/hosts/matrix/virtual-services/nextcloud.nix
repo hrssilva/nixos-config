@@ -26,7 +26,7 @@
     ];
     volumes = [
       # Persist AIO master config
-      #"/var/lib/nextcloud-aio/mastercontainer:/mnt/docker-aio-config"
+      "/var/lib/nextcloud-aio/mastercontainer:/mnt/docker-aio-config"
 
       # Persist Nextcloud data (mapped to your existing path)
       #"/mnt/data/nextcloud-server:/mnt/ncdata"
