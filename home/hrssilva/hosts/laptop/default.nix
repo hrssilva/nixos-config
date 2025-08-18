@@ -36,6 +36,7 @@
     fzf
     spotify-player
     gh
+    nextcloud-client
   ];
 
   # starship - a customizable prompt for any shell
