@@ -26,17 +26,14 @@
     ];
     volumes = [
       # Persist AIO master config
-      "/var/lib/nextcloud-aio/mastercontainer:/mnt/docker-aio-config"
-
-      # Persist Nextcloud data (mapped to your existing path)
-      "/mnt/data/nextcloud-aio:/mnt/ncdata"
+      "nextcloud_aio_mastercontainer:/mnt/docker-aio-config"
 
       # Allow AIO master to control sibling containers
-      "/var/run/docker.sock:/var/run/docker.sock"
+      "/var/run/docker.sock:/var/run/docker.sock:ro"
     ];
     environment = {
       # Tell AIO where your data lives inside the container namespace
-      #NEXTCLOUD_DATADIR = "/mnt/ncdata";
+      NEXTCLOUD_DATADIR = "/mnt/data/nextcloud-aio";
       # (Optional) Pre-fill your domain:
       # NEXTCLOUD_MAINDOMAIN = "cloud.example.com";
       # (Optional) If running behind an external reverse proxy, you can later
