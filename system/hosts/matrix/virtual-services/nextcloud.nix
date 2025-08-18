@@ -1,4 +1,4 @@
-{ ... }:
+{config, ... }:
 {
   #### AIO needs Docker to spawn sibling containers
   virtualisation.docker.enable = true;
@@ -41,12 +41,26 @@
       # set AIO variables such as APACHE_PORT, APACHE_IP_BINDING, etc., in UI.
       APACHE_PORT="11000" ;
       APACHE_IP_BINDING="0.0.0.0" ;
+      SKIP_DOMAIN_VALIDATION="true" ;
     };
     extraOptions = [
       "--pull=always"
       "--name=nextcloud-aio-mastercontainer"
     ];
   };
+    services.cloudflared = {
+        enable = true;
+        certificateFile = config.age.secrets.cloudflared.path;
+        tunnels = {
+            "home-server" = {
+                ingress = {
+                    "cloudaio.hrssilva.dev.br" = "http://localhost:1100";
+                };
+                default = "http_status:404";
+                credentialsFile = config.age.secrets.cloudflared-home-server.path;
+            };
+        };
+    };
 
   #### Removed items from your original config:
   # - services.postgresql (AIO brings its own PostgreSQL)
