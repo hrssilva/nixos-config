@@ -39,8 +39,8 @@
       # NEXTCLOUD_MAINDOMAIN = "cloud.example.com";
       # (Optional) If running behind an external reverse proxy, you can later
       # set AIO variables such as APACHE_PORT, APACHE_IP_BINDING, etc., in UI.
-      APACHE_PORT=11000 ;
-      APACHE_IP_BINDING=0.0.0.0 ;
+      APACHE_PORT="11000" ;
+      APACHE_IP_BINDING="0.0.0.0" ;
     };
     extraOptions = [
       "--pull=always"
