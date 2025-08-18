@@ -22,6 +22,7 @@
     # Do NOT bind 443 here; the AIO reverse proxy container will take 443.
     ports = [
       "8980:80"        # HTTP (incl. ACME HTTP-01)
+      "8880:8080"        
       "8443:8443"    # AIO admin UI
     ];
     volumes = [
