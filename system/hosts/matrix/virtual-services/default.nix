@@ -8,7 +8,7 @@ let
     gw = "${interface-prefix}gw";
 in {
     imports = [
-        (import ./nextcloud.nix {ifaces = [ nextcloud-app ];})
+        ./nextcloud.nix
         #(import ./gateway.nix {ifaces = [ nextcloud-gw gw ];})
         #./dns.nix
     ];
