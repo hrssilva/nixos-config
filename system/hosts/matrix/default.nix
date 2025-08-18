@@ -19,6 +19,7 @@
       #./headscale.nix #gave up on headscale until I actually try to setup DDNS
       ./exitnode-vpn.nix
       ./nextcloud.nix
+      ./virtual-services
     ];
 
   boot.swraid.enable = true;
