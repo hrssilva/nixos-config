@@ -29,7 +29,7 @@
       "/var/lib/nextcloud-aio/mastercontainer:/mnt/docker-aio-config"
 
       # Persist Nextcloud data (mapped to your existing path)
-      #"/mnt/data/nextcloud-server:/mnt/ncdata"
+      "/mnt/data/nextcloud-aio:/mnt/ncdata"
 
       # Allow AIO master to control sibling containers
       "/var/run/docker.sock:/var/run/docker.sock"
