@@ -14,11 +14,11 @@
       ../../modules/tailscale.nix
       ../../modules/cloudflare.nix
       ./secrets.nix
-      ./netdata.nix
-      ./postgres.nix
+      #./netdata.nix
+      #./postgres.nix
       #./headscale.nix #gave up on headscale until I actually try to setup DDNS
-      ./exitnode-vpn.nix
-      ./nextcloud.nix
+      #./exitnode-vpn.nix
+      #./nextcloud.nix
       #./virtual-services
     ];
 
