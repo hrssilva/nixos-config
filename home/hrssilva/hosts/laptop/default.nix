@@ -38,6 +38,7 @@
     gh
     nextcloud-client
     zathura
+    bitwarden-desktop
   ];
 
   # starship - a customizable prompt for any shell
