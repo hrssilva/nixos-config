@@ -58,6 +58,7 @@
     shellAliases = {
     la = "ll -a";
     lunarvim="NVIM_APPNAME=LunarVim nvim";
+    lazyvim="NVIM_APPNAME=LazyVim nvim";
     };
   };
 
