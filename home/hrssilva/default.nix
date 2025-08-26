@@ -57,6 +57,7 @@
     # set some aliases, feel free to add more or remove some
     shellAliases = {
     la = "ll -a";
+    lunarvim="NVIM_APPNAME=LunarVim nvim";
     };
   };
 
