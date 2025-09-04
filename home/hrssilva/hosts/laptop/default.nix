@@ -34,7 +34,8 @@
     pastel
     astroterm
     fzf
-    spotify-player
+    librespot
+    spotify-qt
     gh
     nextcloud-client
     zathura
