@@ -40,6 +40,7 @@
     nextcloud-client
     zathura
     bitwarden-desktop
+    lens
   ];
 
   # starship - a customizable prompt for any shell
