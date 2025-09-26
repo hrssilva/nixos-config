@@ -86,6 +86,11 @@ services.printing = {
   ];
 };
 
+# Network shared files
+environment.systemPackages = [
+    pkgs.cifs-utils
+  ];
+
   # Install steam
   programs.steam.enable = true;
 }
