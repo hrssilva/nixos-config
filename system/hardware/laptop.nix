@@ -34,7 +34,7 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
-  netwoeking.nameservers = [ "100.114.61.9" "100.100.100.100" "8.8.8.8" ];
+  #networking.nameservers = [ "100.114.61.9" "100.100.100.100" "8.8.8.8" ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
