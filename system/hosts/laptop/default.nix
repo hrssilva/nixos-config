@@ -91,7 +91,6 @@ environment.systemPackages = [
     pkgs.cifs-utils
   ];
 
-  networking.nameservers = [ "100.114.61.9" "100.100.100.100" "8.8.8.8" ];
 
   # Install steam
   programs.steam.enable = true;

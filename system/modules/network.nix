@@ -3,7 +3,11 @@
   networking.hostName = hostname; # Define your hostname.
   
   # Enable networking
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    insertNameservers = [ "100.114.61.9" ];
+    appendNameservers = [ "8.8.8.8" ];
+    };
   users.users = builtins.mapAttrs (_name: user: {
     extraGroups = [ "networkmanager" ];
   }) allusers ;
