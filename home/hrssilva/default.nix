@@ -59,7 +59,7 @@
     la = "ll -a";
     lunarvim="NVIM_APPNAME=LunarVim nvim";
     lazyvim="NVIM_APPNAME=LazyVim nvim";
-    mntcode="sudo mount.cifs //100.96.120.83/code /mnt/share/code -o user=hrssilva";
+    mntcode="sudo mount.cifs //100.96.120.83/code /mnt/share/code -o user=hrssilva,uid=hrssilva,gid=users";
     };
   };
 
