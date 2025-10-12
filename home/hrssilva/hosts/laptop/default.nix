@@ -41,6 +41,7 @@
     zathura
     bitwarden-desktop
     lens
+    foliate
   ];
 
   # starship - a customizable prompt for any shell
