@@ -1,7 +1,7 @@
 { config, pkgs, super, hostname, ... }: {
     programs.wezterm = {
         enable = true;
-        extraConfig = """
+        extraConfig = "
         -- Pull in the wezterm API
         local wezterm = require 'wezterm'
 
@@ -21,6 +21,6 @@
 
         -- Finally, return the configuration to wezterm:
         return config
-        """ ;
+        " ;
     } ;
 }
